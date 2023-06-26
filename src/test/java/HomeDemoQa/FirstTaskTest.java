@@ -22,6 +22,8 @@ public class FirstTaskTest {
         driver.findElement(By.cssSelector("#item-4")).click();
 
         driver.findElement(By.xpath("//*[text()='Click Me']")).click();
+//        private final By buttonsMenu = By.xpath("//span[text()='Buttons']");
+//        private final By clickMeButton = By.xpath("//button[text()='Click Me']");
 
         String text = driver.findElement(By.cssSelector("#dynamicClickMessage")).getText();
 
