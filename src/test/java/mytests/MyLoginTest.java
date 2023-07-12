@@ -2,6 +2,7 @@ package mytests;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import jdk.jfr.Description;
+import mytests.MyBaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,7 +18,7 @@ import pageobjects.LogInPage;
 
 import java.time.Duration;
 
-public class MyLoginTest extends MyBaseTest{
+public class MyLoginTest extends MyBaseTest {
 
     private final static String NAME = "standard_user";
     private final static String PASS = "secret_sauce";

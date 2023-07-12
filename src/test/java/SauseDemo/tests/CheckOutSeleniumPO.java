@@ -1,40 +1,61 @@
-package mytests;
+package SauseDemo.tests;
 
-
+import SauseDemo.framework.pageobjects.HomePageObject;
+import SauseDemo.framework.pageobjects.LoginPageObject;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
 
-import static com.codeborne.selenide.Selenide.$;
 
-
-public class CheckOutSelenium {
+public class CheckOutSeleniumPO {
 
     public WebDriver setUp() {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
-        // options.addArguments("--headless");
+        //options.addArguments("--headless");
         WebDriver driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         return driver;
     }
 
-    public void logIn(WebDriver driver) {
+    @Test
+    public void logIn() {
+        WebDriver driver = setUp();
         driver.get("https://www.saucedemo.com/");
-        driver.findElement(By.cssSelector("#user-name")).sendKeys("standard_user");
-        driver.findElement(By.cssSelector("#password")).sendKeys("secret_sauce");
-        driver.findElement(By.cssSelector("#login-button")).click();
-        Assert.assertTrue(driver.findElement(By.cssSelector(".shopping_cart_link")).isDisplayed());
+        LoginPageObject loginPageObject = new LoginPageObject(driver);
+        loginPageObject.fillUserName("standard_user");
+        loginPageObject.fillPass("secret_sauce");
+        HomePageObject homePageObject = loginPageObject.loginClickSuccess();
+        Assert.assertTrue(homePageObject.isShoppingCartButtonDisplayed());
+
+        driver.close();
+        driver.quit();
+    }
+
+
+    @Test
+    public void logIn2() {
+        WebDriver driver = setUp();
+        driver.get("https://www.saucedemo.com/");
+        boolean isShoppingCartButtonDisplayed = new LoginPageObject(driver)
+                .fillUserName("standard_user")
+                .fillPass("secret_sauce")
+                .loginClickSuccess().isShoppingCartButtonDisplayed();
+        Assert.assertTrue(isShoppingCartButtonDisplayed);
+
+        driver.close();
+        driver.quit();
     }
 
     @Test
     public void CheckOut() {
         WebDriver driver = setUp();
-        logIn(driver);
+        logIn();
         driver.findElement(By.xpath("//div[text()='Sauce Labs Backpack']/../../..//button")).click();
         driver.findElement(By.cssSelector(".shopping_cart_link")).click();
         driver.findElement(By.cssSelector("#checkout")).click();

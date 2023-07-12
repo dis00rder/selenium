@@ -1,4 +1,4 @@
-package mytests;
+package SauseDemo.tests;
 
 
 import com.google.common.collect.Comparators;
