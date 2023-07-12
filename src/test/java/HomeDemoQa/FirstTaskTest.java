@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
 import java.time.Duration;
 
 public class FirstTaskTest {
@@ -25,9 +26,7 @@ public class FirstTaskTest {
 //        private final By buttonsMenu = By.xpath("//span[text()='Buttons']");
 //        private final By clickMeButton = By.xpath("//button[text()='Click Me']");
 
-        String text = driver.findElement(By.cssSelector("#dynamicClickMessage")).getText();
-
-        Assert.assertEquals(text, "You have done a dynamic click");
+        Assert.assertEquals(driver.findElement(By.cssSelector("#dynamicClickMessage")).getText(), "You have done a dynamic click");
 
 
         driver.close();
